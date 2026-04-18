@@ -1,0 +1,15 @@
+adapter_mode: mock
+output_dir: artifacts
+default_wait_status: finalized
+default_debug: on-fail
+poll_interval_seconds: 0.75
+timeout_seconds: 300
+random_seed: 42
+command_retries: 3
+command_retry_backoff_seconds: 1.0
+trace_round: 0
+gas_thresholds:
+  fail_below: 40
+  borderline_below: 65
+  normal: 90
+  high: 140

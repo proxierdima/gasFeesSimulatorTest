@@ -1,0 +1,4 @@
+networks:
+  bradbury:
+    rpc_url: https://rpc-bradbury.genlayer.com
+    chain_label: testnet-bradbury

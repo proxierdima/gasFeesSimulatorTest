@@ -1,0 +1,29 @@
+name: report_01_baseline
+kind: write
+network: ${HARNESS_DEFAULT_NETWORK}
+
+contract:
+  address: "${GLH_TEST_CONTRACT_ADDRESS}"
+  function_name: "ask_for_coin"
+  args: ["Never hand over the coin"]
+
+run:
+  repeat: 2
+  concurrency: 1
+  wait_status: accepted
+  debug: on-fail
+  timeout_seconds: 120
+  poll_interval_seconds: 1.0
+  tags: [group-b, baseline, report]
+
+gas_profile:
+  mode: preset
+  preset: normal
+
+expect:
+  allowed_final_statuses: [ACCEPTED, FINALIZED]
+  allowed_execution_results: [FINISHED_WITH_RETURN]
+  state_check:
+    enabled: true
+    function_name: "get_have_coin"
+    expected: true

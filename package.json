@@ -1,0 +1,12 @@
+{
+  "name": "glh-v4-onchain-gas-harness",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check:node": "node --check backends/onchain_common.mjs && node --check backends/onchain_submit_deploy.mjs && node --check backends/onchain_submit_write.mjs"
+  },
+  "dependencies": {
+    "genlayer-js": "latest",
+    "viem": "latest"
+  }
+}

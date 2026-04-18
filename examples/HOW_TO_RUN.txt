@@ -1,0 +1,9 @@
+Пример запуска с реальными сценариями проекта:
+
+python3 main.py \
+  --project-root ~/glh_v4 \
+  --password 12345678 \
+  --scenario scenarios/report_suite/report_01_baseline.yaml
+
+Если baseline сценарий у вас рабочий, начните с него.
+Потом можно сделать 3 отдельных реальных сценария и передать их через --scenario три раза.

@@ -1,0 +1,87 @@
++ set -euo pipefail
++++ dirname scripts/run_full_report.sh
+++ cd scripts/..
+++ pwd
++ ROOT_DIR=/home/hbrbnbh/glh_v4
++ cd /home/hbrbnbh/glh_v4
++ NETWORK=asimov
++ case "$NETWORK" in
++ ENV_FILE=.env.asimov
++ [[ ! -f .env.asimov ]]
++ set -a
++ source .env.asimov
+++ HARNESS_ADAPTER_MODE=command
+++ HARNESS_OUTPUT_DIR=artifacts
+++ HARNESS_DEFAULT_NETWORK=asimov
+++ HARNESS_DEFAULT_WAIT_STATUS=finalized
+++ HARNESS_DEFAULT_DEBUG=on-fail
+++ HARNESS_POLL_INTERVAL_SECONDS=0.75
+++ HARNESS_TIMEOUT_SECONDS=90
+++ HARNESS_RANDOM_SEED=42
+++ HARNESS_RPC_URL=https://rpc-asimov.genlayer.com
+++ HARNESS_PRIVATE_KEY=
+++ HARNESS_COMMAND_RETRIES=4
+++ HARNESS_COMMAND_RETRY_BACKOFF_SECONDS=1.5
+++ HARNESS_TRACE_ROUND=0
+++ HARNESS_VERBOSE=1
+++ HARNESS_PRINT_LOGS=1
+++ HARNESS_GAS_FAIL_BELOW=40
+++ HARNESS_GAS_BORDERLINE_BELOW=65
+++ HARNESS_GAS_NORMAL=90
+++ HARNESS_GAS_HIGH=140
+++ GLH_AUTO_DEPLOY=0
+++ GLH_TEST_CONTRACT_FILE=contracts/fixtures/sample_contract.py
+++ GLH_TEST_CONTRACT_ADDRESS=0x428E59115f0c4fbf3e0353A4cAeAEc0B59329A67
+++ GLH_TEST_STATE_READ_FN=get_value
+++ GLH_TEST_WRITE_FN=set_value
+++ GLH_TEST_INVALID_FN=fail
+++ HARNESS_CMD_SUBMIT_WRITE='python scripts/submit_write.py --rpc {rpc_url_sh} --contract {contract_address_sh} --fn {function_name_sh} --args {args_json_sh} --gaslimit {gaslimit}'
+++ HARNESS_CMD_SUBMIT_DEPLOY='python scripts/submit_deploy.py --rpc {rpc_url_sh} --contract-file {contract_file_sh} --constructor-args {args_json_sh} --gaslimit {gaslimit}'
+++ HARNESS_CMD_STATUS='python scripts/get_status.py --rpc {rpc_url_sh} --tx {tx_hash_sh}'
+++ HARNESS_CMD_RECEIPT='python scripts/get_receipt.py --rpc {rpc_url_sh} --tx {tx_hash_sh}'
+++ HARNESS_CMD_TRACE='python scripts/get_trace.py --rpc {rpc_url_sh} --tx {tx_hash_sh}'
+++ HARNESS_CMD_READ_STATE='python scripts/read_state.py --rpc {rpc_url_sh} --contract {contract_address_sh} --fn {function_name_sh} --args {args_json_sh}'
+++ GLH_SUBMIT_WRITE_BACKEND_CMD=
+++ GLH_SUBMIT_DEPLOY_BACKEND_CMD=
+++ GLH_READ_STATE_BACKEND_CMD=
++ set +a
++ export HARNESS_DEFAULT_NETWORK=asimov
++ HARNESS_DEFAULT_NETWORK=asimov
++ export PYTHONPATH=.
++ PYTHONPATH=.
++ export HARNESS_VERBOSE=1
++ HARNESS_VERBOSE=1
++ export HARNESS_PRINT_LOGS=1
++ HARNESS_PRINT_LOGS=1
++ command -v genlayer
+++ date -u +%Y-%m-%d_%H-%M-%S
++ SESSION_ROOT=artifacts/full-report-asimov-2026-04-07_23-58-51
++ mkdir -p artifacts/full-report-asimov-2026-04-07_23-58-51
++ SESSION_LOG=artifacts/full-report-asimov-2026-04-07_23-58-51/session.log
++ echo 'Session root: artifacts/full-report-asimov-2026-04-07_23-58-51'
++ tee -a artifacts/full-report-asimov-2026-04-07_23-58-51/session.log
+Session root: artifacts/full-report-asimov-2026-04-07_23-58-51
++ echo 'Using env: .env.asimov'
++ tee -a artifacts/full-report-asimov-2026-04-07_23-58-51/session.log
+Using env: .env.asimov
++ echo 'Verbose: HARNESS_VERBOSE=1 HARNESS_PRINT_LOGS=1'
++ tee -a artifacts/full-report-asimov-2026-04-07_23-58-51/session.log
+Verbose: HARNESS_VERBOSE=1 HARNESS_PRINT_LOGS=1
++ DEPLOY_RUN_ROOT=
++ CONTRACT_ADDRESS=0x428E59115f0c4fbf3e0353A4cAeAEc0B59329A67
++ [[ -z 0x428E59115f0c4fbf3e0353A4cAeAEc0B59329A67 ]]
++ [[ 0 == \1 ]]
++ export GLH_TEST_CONTRACT_ADDRESS=0x428E59115f0c4fbf3e0353A4cAeAEc0B59329A67
++ GLH_TEST_CONTRACT_ADDRESS=0x428E59115f0c4fbf3e0353A4cAeAEc0B59329A67
++ echo 'Contract address: 0x428E59115f0c4fbf3e0353A4cAeAEc0B59329A67'
++ tee -a artifacts/full-report-asimov-2026-04-07_23-58-51/session.log
+Contract address: 0x428E59115f0c4fbf3e0353A4cAeAEc0B59329A67
++ echo '[2/3] Running transaction report suite on asimov'
++ tee -a artifacts/full-report-asimov-2026-04-07_23-58-51/session.log
+[2/3] Running transaction report suite on asimov
+++ python -m src.main --scenario scenarios/report_suite --adapter command --debug on-fail --wait-status finalized --out artifacts/full-report-asimov-2026-04-07_23-58-51/suite --verbose --print-logs
+++ tee -a artifacts/full-report-asimov-2026-04-07_23-58-51/session.log
+++ SUITE_OUTPUT='[2026-04-07T23:04:04.985204+00:00] harness-start adapter=command scenarios=6 out=artifacts/full-report-asimov-2026-04-07_23-04-04/suite/2026-04-07_23-04-04 verbose=True print_logs=True
+[2026-04-07T23:04:04.985307+00:00] scenario-start name=report_baseline_write file=/home/hbrbnbh/glh_v4/scenarios/report_suite/report_01_baseline.yaml repeat=2 concurrency=1 risk=normal
+[2026-04-07T23:04:04.985696+00:00] run-start run_id=report-baseline-write-001 scenario=report_baseline_write network=asimov gaslimit=90 wait_status=finalized debug=on-fail'
+md:fail] python scripts/submit_write.py --rpc https://rpc-asimov.genlayer.com --contract 0x428E59115f0c4fbf3e0353A4cAeAEc0B59329A67 --fn set_value --args '\''["baseline-asimov"]'\'' --gaslimit 90'

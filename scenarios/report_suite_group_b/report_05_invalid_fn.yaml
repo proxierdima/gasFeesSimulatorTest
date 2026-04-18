@@ -1,0 +1,25 @@
+name: report_05_invalid_fn
+kind: write
+network: ${HARNESS_DEFAULT_NETWORK}
+
+contract:
+  address: "${GLH_TEST_CONTRACT_ADDRESS}"
+  function_name: "${GLH_TEST_INVALID_FN}"
+  args: []
+
+run:
+  repeat: 1
+  concurrency: 1
+  wait_status: accepted
+  debug: always
+  timeout_seconds: 120
+  poll_interval_seconds: 1.0
+  tags: [group-b, report, invalid-fn]
+
+gas_profile:
+  mode: preset
+  preset: normal
+
+expect:
+  allowed_final_statuses: [ACCEPTED, FINALIZED]
+  allowed_execution_results: [FINISHED_WITH_ERROR, VM_ERROR]

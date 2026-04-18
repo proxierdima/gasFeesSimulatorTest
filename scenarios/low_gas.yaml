@@ -1,0 +1,38 @@
+name: low_gas_write
+kind: write
+network: bradbury
+
+contract:
+  address: "${GLH_TEST_CONTRACT_ADDRESS}"
+  function_name: "update_storage"
+  args: ["low-gas-value"]
+
+run:
+  repeat: 5
+  concurrency: 1
+  wait_status: finalized
+  debug: on-fail
+  timeout_seconds: 30
+  poll_interval_seconds: 0.5
+  tags: [low-gas, out-of-fee]
+
+gas_profile:
+  mode: preset
+  preset: low
+
+expect:
+  allowed_final_statuses: [OUT_OF_FEE, FINALIZED]
+  allowed_execution_results: [FINISHED_WITH_ERROR, FINISHED_WITH_RETURN]
+  expect_out_of_fee: true
+  expect_possible_failure: true
+  state_check:
+    enabled: true
+    function_name: "get_storage"
+    expected: "low-gas-value"
+
+behavior:
+  base_required_gas: 60
+  appeal_like: false
+  nondeterministic: false
+  force_revert: false
+  state_key: storage

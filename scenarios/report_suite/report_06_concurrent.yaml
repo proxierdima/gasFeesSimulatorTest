@@ -1,0 +1,25 @@
+name: report_concurrent_same_sender
+kind: write
+network: ${HARNESS_DEFAULT_NETWORK}
+
+contract:
+  address: "${GLH_TEST_CONTRACT_ADDRESS}"
+  function_name: "${GLH_TEST_WRITE_FN}"
+  args: ["concurrent-${HARNESS_DEFAULT_NETWORK}"]
+
+run:
+  repeat: 4
+  concurrency: 2
+  wait_status: finalized
+  debug: on-fail
+  timeout_seconds: 90
+  poll_interval_seconds: 1.0
+  tags: [report, concurrency]
+
+gas_profile:
+  mode: preset
+  preset: normal
+
+expect:
+  allowed_final_statuses: [FINALIZED, ACCEPTED]
+  allowed_execution_results: [FINISHED_WITH_RETURN]

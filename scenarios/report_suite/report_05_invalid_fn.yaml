@@ -1,0 +1,26 @@
+name: report_invalid_function_call
+kind: write
+network: ${HARNESS_DEFAULT_NETWORK}
+
+contract:
+  address: "${GLH_TEST_CONTRACT_ADDRESS}"
+  function_name: "${GLH_TEST_INVALID_FN}"
+  args: ["boom-${HARNESS_DEFAULT_NETWORK}"]
+
+run:
+  repeat: 1
+  concurrency: 1
+  wait_status: finalized
+  debug: always
+  timeout_seconds: 90
+  poll_interval_seconds: 1.0
+  tags: [report, execution-error]
+
+gas_profile:
+  mode: preset
+  preset: normal
+
+expect:
+  allowed_final_statuses: [FINALIZED, ACCEPTED, OUT_OF_FEE]
+  allowed_execution_results: [FINISHED_WITH_ERROR, VM_ERROR]
+  expect_possible_failure: true

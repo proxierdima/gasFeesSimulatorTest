@@ -1,0 +1,32 @@
+name: deploy_contract_fixture
+kind: deploy
+network: bradbury
+
+contract:
+  contract_file: "contracts/fixtures/sample_contract.py"
+  constructor_args: ["hello-from-deploy"]
+
+run:
+  repeat: 2
+  concurrency: 1
+  wait_status: finalized
+  debug: on-fail
+  timeout_seconds: 30
+  poll_interval_seconds: 0.5
+  tags: [deploy]
+
+gas_profile:
+  mode: preset
+  preset: normal
+
+expect:
+  allowed_final_statuses: [FINALIZED]
+  allowed_execution_results: [FINISHED_WITH_RETURN]
+  expect_out_of_fee: false
+  expect_possible_failure: false
+
+behavior:
+  base_required_gas: 70
+  appeal_like: false
+  nondeterministic: false
+  force_revert: false

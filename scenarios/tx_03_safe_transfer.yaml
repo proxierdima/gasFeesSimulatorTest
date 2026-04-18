@@ -1,0 +1,6 @@
+name: tx_03_safe_transfer
+network: asimov
+type: transfer
+wait_status: finalized
+risk: low
+enabled: true

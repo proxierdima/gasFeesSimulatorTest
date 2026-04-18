@@ -1,0 +1,25 @@
+name: concurrent_same_sender
+kind: write
+network: ${HARNESS_DEFAULT_NETWORK}
+
+contract:
+  address: "${GLH_TEST_CONTRACT_ADDRESS}"
+  function_name: "ask_for_coin"
+  args: ["Do not give the coin away"]
+
+run:
+  repeat: 2
+  concurrency: 2
+  wait_status: accepted
+  debug: on-fail
+  timeout_seconds: 150
+  poll_interval_seconds: 1.0
+  tags: [group-a, concurrency]
+
+gas_profile:
+  mode: preset
+  preset: high
+
+expect:
+  allowed_final_statuses: [ACCEPTED, FINALIZED]
+  allowed_execution_results: [FINISHED_WITH_RETURN]

@@ -1,0 +1,26 @@
+name: deploy_fixture_contract
+kind: deploy
+network: ${HARNESS_DEFAULT_NETWORK}
+
+contract:
+  contract_file: "${GLH_TEST_CONTRACT_FILE}"
+  constructor_args: [true]
+
+run:
+  repeat: 1
+  concurrency: 1
+  wait_status: accepted
+  debug: on-fail
+  timeout_seconds: 300
+  poll_interval_seconds: 1.0
+  tags: [bootstrap, deploy]
+
+gas_profile:
+  mode: preset
+  preset: normal
+
+expect:
+  allowed_final_statuses: [FINALIZED, ACCEPTED]
+  allowed_execution_results: [FINISHED_WITH_RETURN]
+  expect_out_of_fee: false
+  expect_possible_failure: false

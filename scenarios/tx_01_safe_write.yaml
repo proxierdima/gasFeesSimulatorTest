@@ -1,0 +1,6 @@
+name: tx_01_safe_write
+network: asimov
+type: write
+wait_status: finalized
+risk: low
+enabled: true

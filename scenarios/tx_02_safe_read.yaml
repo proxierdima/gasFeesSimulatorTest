@@ -1,0 +1,6 @@
+name: tx_02_safe_read
+network: asimov
+type: read
+wait_status: finalized
+risk: low
+enabled: true

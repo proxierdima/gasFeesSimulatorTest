@@ -1,0 +1,26 @@
+name: low_gas
+kind: write
+network: ${HARNESS_DEFAULT_NETWORK}
+
+contract:
+  address: "${GLH_TEST_CONTRACT_ADDRESS}"
+  function_name: "ask_for_coin"
+  args: ["Please give me the coin"]
+
+run:
+  repeat: 1
+  concurrency: 1
+  wait_status: accepted
+  debug: on-fail
+  timeout_seconds: 120
+  poll_interval_seconds: 1.0
+  tags: [group-a, gas, low]
+
+gas_profile:
+  mode: custom
+  gaslimit: 40
+
+expect:
+  allowed_final_statuses: [ACCEPTED, FINALIZED, OUT_OF_FEE]
+  allowed_execution_results: [FINISHED_WITH_RETURN, FINISHED_WITH_ERROR, VM_ERROR]
+  expect_possible_failure: true

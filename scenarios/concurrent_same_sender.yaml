@@ -1,0 +1,38 @@
+name: concurrent_same_sender
+kind: write
+network: bradbury
+
+contract:
+  address: "${GLH_TEST_CONTRACT_ADDRESS}"
+  function_name: "update_storage"
+  args: ["concurrent-write"]
+
+run:
+  repeat: 6
+  concurrency: 3
+  wait_status: finalized
+  debug: on-fail
+  timeout_seconds: 30
+  poll_interval_seconds: 0.5
+  tags: [concurrency, same-sender]
+
+gas_profile:
+  mode: preset
+  preset: normal
+
+expect:
+  allowed_final_statuses: [FINALIZED]
+  allowed_execution_results: [FINISHED_WITH_RETURN]
+  expect_out_of_fee: false
+  expect_possible_failure: false
+  state_check:
+    enabled: true
+    function_name: "get_storage"
+    expected: "concurrent-write"
+
+behavior:
+  base_required_gas: 65
+  appeal_like: false
+  nondeterministic: true
+  force_revert: false
+  state_key: storage

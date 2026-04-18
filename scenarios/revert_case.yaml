@@ -1,0 +1,38 @@
+name: revert_case
+kind: write
+network: bradbury
+
+contract:
+  address: "0x3333333333333333333333333333333333333333"
+  function_name: "update_storage"
+  args: ["should-revert"]
+
+run:
+  repeat: 3
+  concurrency: 1
+  wait_status: finalized
+  debug: always
+  timeout_seconds: 30
+  poll_interval_seconds: 0.5
+  tags: [revert, trace]
+
+gas_profile:
+  mode: preset
+  preset: normal
+
+expect:
+  allowed_final_statuses: [FINALIZED]
+  allowed_execution_results: [FINISHED_WITH_ERROR]
+  expect_out_of_fee: false
+  expect_possible_failure: true
+  state_check:
+    enabled: true
+    function_name: "get_storage"
+    expected: "should-revert"
+
+behavior:
+  base_required_gas: 55
+  appeal_like: false
+  nondeterministic: false
+  force_revert: true
+  state_key: storage

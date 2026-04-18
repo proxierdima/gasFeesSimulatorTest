@@ -1,0 +1,38 @@
+name: high_gas_write
+kind: write
+network: bradbury
+
+contract:
+  address: "${GLH_TEST_CONTRACT_ADDRESS}"
+  function_name: "update_storage"
+  args: ["high-gas-value"]
+
+run:
+  repeat: 3
+  concurrency: 1
+  wait_status: finalized
+  debug: on-fail
+  timeout_seconds: 30
+  poll_interval_seconds: 0.5
+  tags: [high-gas, overprovision]
+
+gas_profile:
+  mode: preset
+  preset: high
+
+expect:
+  allowed_final_statuses: [FINALIZED]
+  allowed_execution_results: [FINISHED_WITH_RETURN]
+  expect_out_of_fee: false
+  expect_possible_failure: false
+  state_check:
+    enabled: true
+    function_name: "get_storage"
+    expected: "high-gas-value"
+
+behavior:
+  base_required_gas: 60
+  appeal_like: true
+  nondeterministic: false
+  force_revert: false
+  state_key: storage
