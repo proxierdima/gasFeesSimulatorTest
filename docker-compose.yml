@@ -1,9 +1,0 @@
-services:
-  harness:
-    build: .
-    working_dir: /app
-    volumes:
-      - ./:/app
-    env_file:
-      - .env
-    command: ["--scenario", "scenarios", "--adapter", "mock", "--out", "artifacts"]
