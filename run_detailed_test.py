@@ -54,7 +54,7 @@ class DetailedTestRunner:
         seconds = int(elapsed % 60)
         return f"{minutes}m {seconds}s"
 
-    def run_test(self, gas_limit: int = 90):
+    def run_test(self, gas_limit: int = 90, constructor_args: str = "[true]"):
         """Run detailed test with monitoring"""
 
         self.print_header("GAS FEES SIMULATOR - DETAILED TEST RUN")
@@ -112,7 +112,7 @@ class DetailedTestRunner:
             "--contract-file",
             str(contract_file),
             "--constructor-args",
-            "[]",
+            constructor_args,
             "--gaslimit",
             str(gas_limit),
         ]
@@ -300,10 +300,16 @@ def main():
     parser.add_argument(
         "--gas", type=int, default=90, help="Gas limit to use (default: 90)"
     )
+    parser.add_argument(
+        "--constructor-args",
+        type=str,
+        default="[true]",
+        help="Constructor arguments as JSON array (default: [true])",
+    )
     args = parser.parse_args()
 
     runner = DetailedTestRunner(project_root)
-    runner.run_test(gas_limit=args.gas)
+    runner.run_test(gas_limit=args.gas, constructor_args=args.constructor_args)
 
 
 if __name__ == "__main__":
